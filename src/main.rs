@@ -23,61 +23,43 @@ fn main() {
 
   let difficulty_u32: u32 = difficulty.trim().parse().expect("Failed to Get Number.");
 
-  let mut guess_str: String = String::new();
-
   if difficulty_u32 == 1 {
     chances = 10;
-    println!("Great! you have selected the Easy difficulty.");
-  } 
-  else if difficulty_u32 == 2 {
+    println!("Great! You have selected the Easy difficulty level.");
+  } else if difficulty_u32 == 2 {
     chances = 5;
-    println!("Great! you have selected the Medium difficulty.");
-  } 
-  else if difficulty_u32 == 3 {
+    println!("Great! You have selected the Medium difficulty level.");
+  } else if difficulty_u32 == 3 {
     chances = 3;
-    println!("Great! you have selected the Hard difficulty.");
+    println!("Great! You have selected the Hard difficulty level.");
   }
 
-
   println!("Let's start the game!");
-  println!("Enter Your Guess: ");
-  io::stdin()
-    .read_line(&mut guess_str)
-    .expect("Failed To Get Guess.");
-
-  let mut guess: u32 = guess_str
-    .trim()
-    .parse()
-    .expect("Failed to Get Number Guess.");
 
   let rand_num: u32 = rand::rng().random_range(1..=100);
 
   for _i in 1..=chances {
+    println!("Enter your guess:");
+
+    let mut guess_str: String = String::new();
+    io::stdin()
+      .read_line(&mut guess_str)
+      .expect("Failed To Get Guess.");
+
+    let guess: u32 = guess_str.trim().parse().expect("Failed to get Number.");
+
+    attempts += 1;
+
     if guess == rand_num {
       println!(
         "Congratulations! You guessed the correct number in {} attempts.",
         attempts
       );
       break;
-    } 
-    else if guess > rand_num {
+    } else if guess > rand_num {
       println!("Incorrect! The number is less than {}.", guess);
-      println!("Enter Your Guess: ");
-      guess_str.clear();
-      io::stdin()
-        .read_line(&mut guess_str)
-        .expect("Failed To Get Guess.");
-      guess = guess_str.trim().parse().expect("Failed to get Number.");
-    } 
-    else if guess < rand_num {
+    } else {
       println!("Incorrect! The number is greater than {}.", guess);
-      println!("Enter Your Guess: ");
-      guess_str.clear();
-      io::stdin()
-        .read_line(&mut guess_str)
-        .expect("Failed To Get Guess.");
-      guess = guess_str.trim().parse().expect("Failed to get Number.");
     }
-    attempts += 1;
   }
 }
