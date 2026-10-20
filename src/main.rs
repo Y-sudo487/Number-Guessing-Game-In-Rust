@@ -23,8 +23,8 @@
 
 // Enter your guess: 30
 // Congratulations! You guessed the correct number in 4 attempts.
-use std::io;
 
+use std::io;
 use rand::RngExt;
 
 fn main() {
